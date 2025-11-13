@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './common/middleware/activity-logger.middleware';
 import { AppController } from '@/app.controller';
 import { HealthModule } from '@/health/health.module';
+import { UploadModule } from '@/upload/upload.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { HealthModule } from '@/health/health.module';
       isGlobal: true,
     }),
     HealthModule,
+    UploadModule,
   ],
   controllers: [AppController],
 })
