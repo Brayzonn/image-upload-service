@@ -1,9 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('API Info')
 @Controller()
 export class AppController {
+  constructor(private readonly configService: ConfigService) {}
+
   @Get()
   @ApiOperation({ summary: 'Get API information' })
   @ApiResponse({
@@ -30,11 +33,14 @@ export class AppController {
         'File validation',
       ],
       limits: {
-        maxFileSize: '5MB',
+        maxFileSize: this.configService.get<string>('MAX_FILE_SIZE', '5MB'),
         maxFiles: 10,
-        supportedFormats: ['JPEG', 'PNG', 'WebP'],
+        supportedFormats: this.configService
+          .get<string>('ALLOWED_MIME_TYPES', 'image/jpeg,image/png,image/webp')
+          .split(',')
+          .map((type) => type.replace('image/', '').toUpperCase()),
       },
-      environment: process.env.NODE_ENV || 'development',
+      environment: this.configService.get<string>('NODE_ENV', 'development'),
       timestamp: new Date().toISOString(),
     };
   }

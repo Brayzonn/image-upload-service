@@ -8,6 +8,9 @@ import {
 import { Request, Response, NextFunction } from 'express';
 import { RateLimiterRedis, RateLimiterMemory } from 'rate-limiter-flexible';
 import Redis from 'ioredis';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const redisClient =
   process.env.NODE_ENV === 'production'

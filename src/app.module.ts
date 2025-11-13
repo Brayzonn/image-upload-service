@@ -4,6 +4,7 @@ import { LoggerMiddleware } from './common/middleware/activity-logger.middleware
 import { AppController } from '@/app.controller';
 import { HealthModule } from '@/health/health.module';
 import { UploadModule } from '@/upload/upload.module';
+import { DefaultRateLimitMiddleware } from './common/middleware/rate-limit.middleware';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { UploadModule } from '@/upload/upload.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer.apply(LoggerMiddleware, DefaultRateLimitMiddleware).forRoutes('*');
   }
 }
