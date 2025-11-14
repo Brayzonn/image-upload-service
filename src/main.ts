@@ -65,13 +65,6 @@ async function bootstrap() {
   }
 
   logger.log(`Health check: ${appUrl}/api/v1/health`);
-
-  logger.log(
-    `JWT expires in: ${configService.get('JWT_ACCESS_TOKEN_EXPIRES_IN', '15m')}`,
-  );
-  logger.log(
-    `Refresh token expires in: ${configService.get('JWT_REFRESH_TOKEN_EXPIRES_IN', '7d')}`,
-  );
 }
 bootstrap().catch((error) => {
   const logger = new Logger('Bootstrap');

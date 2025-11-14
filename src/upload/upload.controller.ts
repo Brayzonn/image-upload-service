@@ -6,14 +6,14 @@ import {
   UploadedFile,
   UploadedFiles,
   Body,
-  BadRequestException,
+  ParseFilePipe,
   MaxFileSizeValidator,
   FileTypeValidator,
-  ParseFilePipe,
 } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { UploadService } from './upload.service';
-import { UploadResponseDto } from './dto/upload-response.dto';
+import { UploadService } from '@/upload/upload.service';
+import { UploadResponseDto } from '@/upload//dto/upload-response.dto';
+import { UploadImageDto } from '@/upload/interfaces/upload-image.dto';
 
 @Controller('upload')
 export class UploadController {
@@ -32,8 +32,9 @@ export class UploadController {
       }),
     )
     file: Express.Multer.File,
+    @Body() uploadDto: UploadImageDto,
   ): Promise<UploadResponseDto> {
-    return this.uploadService.processAndUploadImage(file);
+    return this.uploadService.processAndUploadImage(file, uploadDto);
   }
 
   @Post('images')
@@ -49,23 +50,13 @@ export class UploadController {
       }),
     )
     files: Express.Multer.File[],
+    @Body() uploadDto: UploadImageDto,
   ): Promise<UploadResponseDto[]> {
-    if (!files || files.length === 0) {
-      throw new BadRequestException('No files uploaded');
-    }
-
-    if (files.length > 10) {
-      throw new BadRequestException('Maximum 10 files allowed');
-    }
-
-    return this.uploadService.processMultipleImages(files);
+    return this.uploadService.processMultipleImages(files, uploadDto);
   }
 
   @Delete('image')
   async deleteImage(@Body('publicId') publicId: string) {
-    if (!publicId) {
-      throw new BadRequestException('Public ID is required');
-    }
     return this.uploadService.deleteImage(publicId);
   }
 }

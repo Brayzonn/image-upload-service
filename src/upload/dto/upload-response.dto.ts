@@ -19,5 +19,15 @@ export class UploadResponseDto {
     medium: ImageSizeDto;
     large: ImageSizeDto;
   };
+  metadata: UploadOptions;
   uploadedAt: Date;
+}
+
+export class UploadOptions {
+  userId?: string;
+  folder?: string;
+  category?: string;
+  description?: string;
+  tags?: string[];
+  isPublic?: boolean;
 }
