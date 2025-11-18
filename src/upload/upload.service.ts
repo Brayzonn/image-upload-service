@@ -170,6 +170,7 @@ export class UploadService {
           folder: folder,
           public_id: filename,
           resource_type: 'image',
+          type: 'upload',
         },
         (error, result) => {
           if (error) {
