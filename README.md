@@ -930,16 +930,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Author
-
-**Brayz**
-
-- Twitter: [@brayzoney](https://x.com/brayzoney)
-- GitHub: [@brayzonn](https://github.com/brayzonn)
-
-## Acknowledgments
-
-- NestJS team for the excellent framework
-- Sharp for high-performance image processing
-- Cloudinary for cloud storage and CDN
