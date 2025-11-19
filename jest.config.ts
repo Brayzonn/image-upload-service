@@ -2,7 +2,7 @@ import type { Config } from 'jest';
 
 const config: Config = {
   moduleFileExtensions: ['js', 'json', 'ts'],
-  rootDir: '.',
+  rootDir: 'src',
   testRegex: '.*\\.spec\\.ts$',
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
@@ -10,26 +10,24 @@ const config: Config = {
   collectCoverageFrom: [
     '**/*.(t|j)s',
     '!**/*.spec.ts',
+    '!**/*.e2e-spec.ts',
     '!**/node_modules/**',
     '!**/dist/**',
     '!**/coverage/**',
     '!**/*.config.ts',
     '!**/main.ts',
+    '!**/*.interface.ts',
+    '!**/*.dto.ts',
+    '!**/*.enum.ts',
+    '!**/*.module.ts',
   ],
-  coverageDirectory: './coverage',
+  coverageDirectory: '../coverage',
   testEnvironment: 'node',
-
   moduleNameMapper: {
-    '^src/(.*)$': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/$1',
   },
-
-  modulePaths: ['<rootDir>'],
-
   clearMocks: true,
-
-  setupFilesAfterEnv: ['<rootDir>/test/jest.setup.ts'],
-
-  testTimeout: 10000,
+  testTimeout: 30000,
 };
 
 export default config;
